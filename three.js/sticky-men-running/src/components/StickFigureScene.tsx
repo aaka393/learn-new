@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
+import { animationData } from './controlanimation';
 
 const StickFigureScene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -91,54 +92,54 @@ const StickFigureScene: React.FC = () => {
 
     // Head
     const head = new THREE.Mesh(
-      new THREE.SphereGeometry(0.7, 32, 32),
-      new THREE.MeshLambertMaterial({ color: 0xff6600 })
+      new THREE.SphereGeometry(animationData.head.radius, 32, 32),
+      new THREE.MeshLambertMaterial({ color: animationData.head.color })
     );
-    head.position.set(0, 5.5, 0);
+    head.position.set(0, animationData.head.y, 0);
     stickFigure.add(head);
 
     // Body
     const body = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.2, 0.2, 3, 32),
-      new THREE.MeshLambertMaterial({ color: 0xff6600 })
+      new THREE.CylinderGeometry(animationData.body.radius, animationData.body.radius, animationData.body.height, 32),
+      new THREE.MeshLambertMaterial({ color: animationData.body.color })
     );
-    body.position.set(0, 3.5, 0);
+    body.position.set(0, animationData.body.y, 0);
     stickFigure.add(body);
 
     // Arms
     const createLimb = (length: number) => {
       return new THREE.Mesh(
-        new THREE.CylinderGeometry(0.15, 0.15, length, 32),
-        new THREE.MeshLambertMaterial({ color: 0xff6600 })
+        new THREE.CylinderGeometry(animationData.limb.radius, animationData.limb.radius, length, 32),
+        new THREE.MeshLambertMaterial({ color: animationData.limb.color })
       );
     };
 
     const leftArmPivot = new THREE.Object3D();
-    leftArmPivot.position.set(-1.2, 4.8, 0);
-    const leftArm = createLimb(2.5);
-    leftArm.position.y = -1.25;
+    leftArmPivot.position.set(animationData.leftArm.x, animationData.leftArm.y, 0);
+    const leftArm = createLimb(animationData.armLength);
+    leftArm.position.y = -animationData.armLength / 2;
     leftArmPivot.add(leftArm);
     stickFigure.add(leftArmPivot);
 
     const rightArmPivot = new THREE.Object3D();
-    rightArmPivot.position.set(1.2, 4.8, 0);
-    const rightArm = createLimb(2.5);
-    rightArm.position.y = -1.25;
+    rightArmPivot.position.set(animationData.rightArm.x, animationData.rightArm.y, 0);
+    const rightArm = createLimb(animationData.armLength);
+    rightArm.position.y = -animationData.armLength / 2;
     rightArmPivot.add(rightArm);
     stickFigure.add(rightArmPivot);
 
     // Legs
     const leftLegPivot = new THREE.Object3D();
-    leftLegPivot.position.set(-0.5, 2, 0);
-    const leftLeg = createLimb(3);
-    leftLeg.position.y = -1.5;
+    leftLegPivot.position.set(animationData.leftLeg.x, animationData.leftLeg.y, 0);
+    const leftLeg = createLimb(animationData.legLength);
+    leftLeg.position.y = -animationData.legLength / 2;
     leftLegPivot.add(leftLeg);
     stickFigure.add(leftLegPivot);
 
     const rightLegPivot = new THREE.Object3D();
-    rightLegPivot.position.set(0.5, 2, 0);
-    const rightLeg = createLimb(3);
-    rightLeg.position.y = -1.5;
+    rightLegPivot.position.set(animationData.rightLeg.x, animationData.rightLeg.y, 0);
+    const rightLeg = createLimb(animationData.legLength);
+    rightLeg.position.y = -animationData.legLength / 2;
     rightLegPivot.add(rightLeg);
     stickFigure.add(rightLegPivot);
 
@@ -154,14 +155,14 @@ const StickFigureScene: React.FC = () => {
       const t = clock.getElapsedTime();
 
       // Limb swinging
-      const swing = Math.sin(t * 6) * 0.8;
+      const swing = Math.sin(t * animationData.swingSpeed) * animationData.swingRange;
       leftArmPivot.rotation.x = swing;
       rightArmPivot.rotation.x = -swing;
       leftLegPivot.rotation.x = -swing;
       rightLegPivot.rotation.x = swing;
 
       // Move stick figure forward
-      stickFigure.position.x += 0.05;
+      stickFigure.position.x += animationData.moveSpeed;
       if (stickFigure.position.x > 10) {
         stickFigure.position.x = -10;
       }

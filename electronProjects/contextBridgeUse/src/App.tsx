@@ -1,33 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/electron-vite.animate.svg'
+
 import './App.css'
-
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
+import Register from './pages/Register';
+import { Login } from './pages/Login';
+import { useEffect } from 'react';
+import { useAuthStore } from './store/authStore';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { RegistryProvider } from './contexts/RegistryContext';
+import Welcome from './pages/Welcome';
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { user, verifyToken } = useAuthStore();
+  useEffect(() => {
+    if (user) {
+      verifyToken();
+      const intervalId = setInterval(() => {
+        verifyToken();
+      }, 5000);
+      return () => clearInterval(intervalId);
+    }
+  }, [user, verifyToken]);
   return (
     <>
-      <div>
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RegistryProvider>
+        <ThemeProvider>
+          <Router>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Welcome />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </RegistryProvider>
     </>
   )
 }

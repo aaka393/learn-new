@@ -1,0 +1,15 @@
+{
+  "numStickFigures": 3,
+  "walkingSpeed": 0.01,
+  "fishingArea": {
+    "x": 5,
+    "y": 0,
+    "z": 0
+  },
+  "fishingLineLength": 2,
+  "fish": {
+    "model": "basic",
+    "texture": "shiny"
+  },
+  "fishingAnimationDuration": 2000
+}

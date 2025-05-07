@@ -1,200 +1,216 @@
 import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three-stdlib';
-import { animationData } from './controlanimation';
 
 const StickFigureScene: React.FC = () => {
-  const mountRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // === Scene Setup ===
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000); // Black sky
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    mountRef.current.appendChild(renderer.domElement);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      mountRef.current.clientWidth / mountRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 5, 15);
+    // Constants
+    const STAR_COUNT = 100;
+    const STAR_SPEED = 1;
+    const OBJECT_SPEED = 2;
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.enablePan = false;
-    controls.enableZoom = false;
-    controls.maxPolarAngle = Math.PI / 2;
+    // Initial State
+    const stars = Array.from({ length: STAR_COUNT }).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height / 2,
+      size: Math.random() * 2 + 0.5
+    }));
 
-    // === Lights ===
-    const light = new THREE.DirectionalLight(0xffffff, 0.8);
-    light.position.set(5, 10, 5);
-    light.castShadow = true;
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0x404040));
-
-    // === Starfield ===
-    // Starfield (only in the sky hemisphere, smaller size)
-    const starGeometry = new THREE.BufferGeometry();
-    const starCount = 1000;
-    const starVertices = [];
-
-    for (let i = 0; i < starCount; i++) {
-      const radius = Math.random() * 150 + 50; // distance from center
-      const theta = Math.random() * 2 * Math.PI; // horizontal angle
-      const phi = Math.random() * Math.PI / 2;  // vertical angle (0 to π/2 for upper dome)
-
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.cos(phi); // y is always positive (sky only)
-      const z = radius * Math.sin(phi) * Math.sin(theta);
-
-      starVertices.push(x, y, z);
-    }
-
-    starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-    const starMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.3, // smaller star size
-      sizeAttenuation: true,
-    });
-    const stars = new THREE.Points(starGeometry, starMaterial);
-    scene.add(stars);
-
-
-    // === Ground ===
-    const gridTexture = new THREE.TextureLoader().load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
-    gridTexture.wrapS = THREE.RepeatWrapping;
-    gridTexture.wrapT = THREE.RepeatWrapping;
-    gridTexture.repeat.set(20, 20);
-    gridTexture.anisotropy = 16;
-
-    const ground = new THREE.Mesh(
-      new THREE.PlaneGeometry(200, 200),
-      new THREE.MeshLambertMaterial({ map: gridTexture })
-    );
-    ground.rotation.x = -Math.PI / 2;
-    ground.receiveShadow = true;
-    scene.add(ground);
-
-    // === Stick Figure ===
-    const stickFigure = new THREE.Group();
-
-    // Head
-    const head = new THREE.Mesh(
-      new THREE.SphereGeometry(animationData.head.radius, 32, 32),
-      new THREE.MeshLambertMaterial({ color: animationData.head.color })
-    );
-    head.position.set(0, animationData.head.y, 0);
-    stickFigure.add(head);
-
-    // Body
-    const body = new THREE.Mesh(
-      new THREE.CylinderGeometry(animationData.body.radius, animationData.body.radius, animationData.body.height, 32),
-      new THREE.MeshLambertMaterial({ color: animationData.body.color })
-    );
-    body.position.set(0, animationData.body.y, 0);
-    stickFigure.add(body);
-
-    // Arms
-    const createLimb = (length: number) => {
-      return new THREE.Mesh(
-        new THREE.CylinderGeometry(animationData.limb.radius, animationData.limb.radius, length, 32),
-        new THREE.MeshLambertMaterial({ color: animationData.limb.color })
-      );
+    const tree = {
+      x: canvas.width / 4 + 300,
+      y: canvas.height / 2 - 100,
+      width: 20,
+      height: 100
     };
 
-    const leftArmPivot = new THREE.Object3D();
-    leftArmPivot.position.set(animationData.leftArm.x, animationData.leftArm.y, 0);
-    const leftArm = createLimb(animationData.armLength);
-    leftArm.position.y = -animationData.armLength / 2;
-    leftArmPivot.add(leftArm);
-    stickFigure.add(leftArmPivot);
+    let stickX = 0;
+    const targetX = canvas.width / 4;
+    const stickY = canvas.height / 2 - 100;
 
-    const rightArmPivot = new THREE.Object3D();
-    rightArmPivot.position.set(animationData.rightArm.x, animationData.rightArm.y, 0);
-    const rightArm = createLimb(animationData.armLength);
-    rightArm.position.y = -animationData.armLength / 2;
-    rightArmPivot.add(rightArm);
-    stickFigure.add(rightArmPivot);
+    let startTime: number | null = null;
+    let movementStopped = false;
 
-    // Legs
-    const leftLegPivot = new THREE.Object3D();
-    leftLegPivot.position.set(animationData.leftLeg.x, animationData.leftLeg.y, 0);
-    const leftLeg = createLimb(animationData.legLength);
-    leftLeg.position.y = -animationData.legLength / 2;
-    leftLegPivot.add(leftLeg);
-    stickFigure.add(leftLegPivot);
+    // Draw Functions
+    const drawTree = (tree: { x: number; y: number; width: number; height: number }) => {
+      // Trunk
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(tree.x, tree.y, tree.width, tree.height);
 
-    const rightLegPivot = new THREE.Object3D();
-    rightLegPivot.position.set(animationData.rightLeg.x, animationData.rightLeg.y, 0);
-    const rightLeg = createLimb(animationData.legLength);
-    rightLeg.position.y = -animationData.legLength / 2;
-    rightLegPivot.add(rightLeg);
-    stickFigure.add(rightLegPivot);
+      // Leaves
+      ctx.beginPath();
+      ctx.arc(tree.x + tree.width / 2, tree.y, 40, 0, Math.PI * 2);
+      ctx.fillStyle = '#006400';
+      ctx.fill();
 
-    stickFigure.position.set(-10, 0, 0);
-    stickFigure.castShadow = true;
-    scene.add(stickFigure);
+      // Apple
+      ctx.beginPath();
+      ctx.arc(tree.x + tree.width / 2 + 10, tree.y + 10, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'red';
+      ctx.fill();
 
-    // === Animation ===
-    const clock = new THREE.Clock();
+      // Stem
+      ctx.beginPath();
+      ctx.moveTo(tree.x + tree.width / 2 + 10, tree.y + 4);
+      ctx.lineTo(tree.x + tree.width / 2 + 10, tree.y);
+      ctx.strokeStyle = 'brown';
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
-    const animate = () => {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
+      // Stone under tree
+      ctx.beginPath();
+      ctx.ellipse(tree.x + 10, tree.y + tree.height + 20, 15, 8, 0, 0, 2 * Math.PI);
+      ctx.fillStyle = '#555';
+      ctx.fill();
+    };
 
-      // Limb swinging
-      const swing = Math.sin(t * animationData.swingSpeed) * animationData.swingRange;
-      leftArmPivot.rotation.x = swing;
-      rightArmPivot.rotation.x = -swing;
-      leftLegPivot.rotation.x = -swing;
-      rightLegPivot.rotation.x = swing;
+    const drawStickFigure = (x: number, y: number, swing: number) => {
+      const headRadius = 15;
+      const baseBodyHeight = 50;
+      const armLength = 30;
+      const legLength = 40;
 
-      // Move stick figure forward
-      stickFigure.position.x += animationData.moveSpeed;
-      if (stickFigure.position.x > 10) {
-        stickFigure.position.x = -10;
+      const bodyHeight = baseBodyHeight + Math.sin(swing) * 5;
+      const elasticArm = armLength + Math.sin(swing * 1.5) * 5;
+      const elasticLeg = legLength + Math.cos(swing * 1.5) * 5;
+
+      const armY = y + headRadius + 10;
+      const legY = y + headRadius + bodyHeight;
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ff6600';
+      ctx.fillStyle = '#ff6600';
+
+      // Shadow
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(x, y + headRadius + bodyHeight + 10, 25, 10, 0, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.filter = 'blur(4px)';
+      ctx.fill();
+      ctx.restore();
+
+      // Head
+      ctx.beginPath();
+      ctx.arc(x, y, headRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(x, y + headRadius);
+      ctx.lineTo(x, y + headRadius + bodyHeight);
+      ctx.stroke();
+
+      // Arms
+      ctx.beginPath();
+      ctx.moveTo(x, armY);
+      ctx.lineTo(x - Math.sin(swing) * elasticArm, armY + Math.cos(swing) * elasticArm);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x, armY);
+      ctx.lineTo(x + Math.sin(swing) * elasticArm, armY + Math.cos(swing) * elasticArm);
+      ctx.stroke();
+
+      // Legs
+      ctx.beginPath();
+      ctx.moveTo(x, legY);
+      ctx.lineTo(x - Math.sin(swing) * elasticLeg, legY + Math.abs(Math.cos(swing)) * elasticLeg);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x, legY);
+      ctx.lineTo(x + Math.sin(swing) * elasticLeg, legY + Math.abs(Math.cos(swing)) * elasticLeg);
+      ctx.stroke();
+    };
+
+    const drawMoon = () => {
+      ctx.beginPath();
+      ctx.arc(canvas.width - 100, 100, 40, 0, 2 * Math.PI);
+      ctx.fillStyle = '#ddddff';
+      ctx.fill();
+    };
+
+    // Animation loop
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Background
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Moon
+      drawMoon();
+
+      // Stars
+      stars.forEach(star => {
+        if (!movementStopped) star.x -= STAR_SPEED;
+        if (star.x < 0) {
+          star.x = canvas.width;
+          star.y = Math.random() * canvas.height / 2;
+        }
+        ctx.fillStyle = 'white';
+        ctx.fillRect(star.x, star.y, star.size, star.size);
+      });
+
+      // Ground
+      ctx.fillStyle = '#228B22';
+      ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+
+      // Tree
+      if (!movementStopped) {
+        tree.x -= OBJECT_SPEED;
+      }
+      drawTree(tree);
+
+      // Stick Man Movement (arrives in ~3 seconds)
+      if (!movementStopped) {
+        const progress = Math.min(elapsed / 3000, 1); // 3 seconds to reach
+        stickX = progress * targetX;
+        if (progress >= 1) {
+          movementStopped = true;
+        }
       }
 
-      // Scroll ground texture
-      gridTexture.offset.y += 0.015;
+      const swing = movementStopped ? 0 : Math.sin(Date.now() / 200);
+      drawStickFigure(stickX, stickY, swing);
 
-      controls.update();
-      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     };
 
-    animate();
+    requestAnimationFrame(animate);
 
-    // === Resize ===
     const handleResize = () => {
-      if (!mountRef.current) return;
-      camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
-    };
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return <div ref={mountRef} style={{ width: '100%', height: '100vh' }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        display: 'block',
+        width: '100vw',
+        height: '100vh',
+        background: 'black'
+      }}
+    />
+  );
 };
 
 export default StickFigureScene;

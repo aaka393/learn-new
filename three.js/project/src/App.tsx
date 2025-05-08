@@ -4,7 +4,10 @@ import StickFigureScene from './components/StickFigureScene';
 function App() {
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <StickFigureScene />
+      {/* <StickFigureScene /> */}
+      <h1 className="text-red-500 bg-red-300 text-3xl font-bold">
+        asf
+      </h1>
     </div>
   );
 }

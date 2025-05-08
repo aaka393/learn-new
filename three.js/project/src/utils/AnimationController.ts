@@ -55,7 +55,8 @@ export class AnimationController {
       bodyHeight: 15 * scaleFactor,
       armLength: 15 * scaleFactor,
       legLength: 15 * scaleFactor,
-      color: '#ff6600'
+      color: '#ff6600',
+      isSitting: false
     };
   }
 
@@ -109,7 +110,7 @@ export class AnimationController {
           this.stateTime = timestamp;
 
           // Reset Y position to sit flat on the ground
-          this.stickFigure.y = this.canvas.height / 2 - 60 * this.stickFigure.scale;
+          this.stickFigure.y = this.canvas.height / 2 - 6 * this.stickFigure.scale;
         }
         break;
 
@@ -118,7 +119,7 @@ export class AnimationController {
         this.stickFigure.swing = Math.sin(totalElapsed / 1500) * 0.1;
 
         // Ensure grounded
-        this.stickFigure.y = this.canvas.height / 2 - 60 * this.stickFigure.scale;
+        this.stickFigure.y = this.canvas.height / 2 - 6 * this.stickFigure.scale;
         break;
     }
   }

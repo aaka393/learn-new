@@ -36,13 +36,43 @@ export const getNextGENAlbum = async () => {
   return res.data;
 };
 
-export const fetchGalleryItems = async (): Promise<{ items: WordPressGalleryItem[], pagination: PaginationInfo } | null> => {
-  const response = await fetch(`${WORDPRESS_API_URL}/media?`);
-  const pagination = extractPaginationInfo(response);
+// export const fetchGalleryItems = async (): Promise<{ items: WordPressGalleryItem[], pagination: PaginationInfo } | null> => {
+//   const response = await fetch(`${WORDPRESS_API_URL}/media?`);
+//   const pagination = extractPaginationInfo(response);
 
-  const items = await handleResponse<WordPressGalleryItem[]>(response);
-  return { items, pagination };
+//   const items = await handleResponse<WordPressGalleryItem[]>(response);
+//   return { items, pagination };
+// };
+
+export const fetchGalleryItems = async (): Promise<{
+  albums: { post: WordPressPost; items: WordPressGalleryItem[] }[];
+  pagination: PaginationInfo;
+} | null> => {
+  try {
+    // Fetch all posts (albums)
+    const postsResponse = await fetch(`${WORDPRESS_API_URL}/posts?_embed&per_page=100`);
+    const posts = await handleResponse<WordPressPost[]>(postsResponse);
+
+    // Fetch all media items (gallery items)
+    const mediaResponse = await fetch(`${WORDPRESS_API_URL}/media?per_page=100`);
+    const mediaItems = await handleResponse<WordPressGalleryItem[]>(mediaResponse);
+
+    // Extract pagination info from media response
+    const pagination = extractPaginationInfo(mediaResponse);
+
+    // Group media items by associated post (using item.post === post.id)
+    const albums = posts.map(post => {
+      const albumItems = mediaItems.filter(item => item.post === post.id);
+      return { post, items: albumItems };
+    });
+
+    return { albums, pagination };
+  } catch (error) {
+    console.error("Error fetching gallery items with albums:", error);
+    return null;
+  }
 };
+
 
 
 

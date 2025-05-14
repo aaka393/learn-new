@@ -74,6 +74,7 @@ export interface WordPressEvent {
 export interface WordPressGalleryItem {
   source_url: undefined;
   id: number;
+  post?: number; 
   title: {
     rendered: string;
   };

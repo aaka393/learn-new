@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fetchGalleryItems } from '../services/api';
-import { WordPressGalleryItem } from '../types/wordpress';
+import { WordPressGalleryItem, WordPressPost } from '../types/wordpress';
 import Loader from '../components/common/Loader';
+import { Link } from 'react-router-dom';
 
 const GalleryPage: React.FC = () => {
-  const [items, setItems] = useState<WordPressGalleryItem[]>([]);
+  const [albums, setAlbums] = useState<{ post: WordPressPost; items: WordPressGalleryItem[] }[]>([]);
   const [selectedItem, setSelectedItem] = useState<WordPressGalleryItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,8 +15,8 @@ const GalleryPage: React.FC = () => {
     setIsLoading(true);
     try {
       const result = await fetchGalleryItems();
-      if (result) {
-        setItems(result.items);
+      if (result && result.albums) {
+        setAlbums(result.albums);
       } else {
         setError('No gallery items found.');
       }
@@ -30,10 +31,6 @@ const GalleryPage: React.FC = () => {
   useEffect(() => {
     loadGallery();
   }, []);
-
-  
-
-
 
   if (isLoading) return <Loader message="Loading gallery..." />;
 
@@ -52,46 +49,66 @@ const GalleryPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-6">
           <h1 className="text-4xl font-bold mb-2">Gallery</h1>
-          <p className="text-gray-600">Explore and manage images</p>
-          
+          <p className="text-gray-600">Explore images grouped by albums</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="relative group border rounded-xl overflow-hidden bg-white shadow"
-            >
-              <div className="aspect-w-3 aspect-h-2">
-                <img
-                  src={item.source_url}
-                  alt={item.title.rendered}
-                  className="object-cover w-full h-64 group-hover:scale-105 transition-transform cursor-pointer"
-                  onClick={() => setSelectedItem(item)}
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg">{item.title.rendered}</h3>
-                {item.meta?.gallery_category && <p className="text-sm text-gray-500">{item.meta.gallery_category}</p>}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {albums.map((album, albumIndex) => (
+          <div key={albumIndex} className="mb-12">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+              <Link to={`/album/${album.post.slug}`}>{album.post.title.rendered}</Link>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {album.items.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="relative group border rounded-xl overflow-hidden bg-white shadow"
+                >
+                  <div className="aspect-w-3 aspect-h-2">
+                    <img
+                      src={item.source_url}
+                      alt={item.title.rendered}
+                      className="object-cover w-full h-64 group-hover:scale-105 transition-transform cursor-pointer"
+                      onClick={() => setSelectedItem(item)}
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg">{item.title.rendered}</h3>
+                    {item.meta?.gallery_category && (
+                      <p className="text-sm text-gray-500">{item.meta.gallery_category}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70" onClick={() => setSelectedItem(null)}>
-          <div className="bg-white rounded-lg overflow-hidden relative max-w-4xl w-full" onClick={e => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div
+            className="bg-white rounded-lg overflow-hidden relative max-w-4xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img src={selectedItem.source_url} alt={selectedItem.title.rendered} className="w-full" />
             <div className="p-4">
               <h3 className="text-xl font-bold">{selectedItem.title.rendered}</h3>
-              <div dangerouslySetInnerHTML={{ __html: selectedItem.content?.rendered || '' }} className="prose" />
+              <div
+                dangerouslySetInnerHTML={{ __html: selectedItem.content?.rendered || '' }}
+                className="prose"
+              />
             </div>
-            <button className="absolute top-2 right-2 text-white bg-black bg-opacity-50 p-2 rounded-full" onClick={() => setSelectedItem(null)}>
+            <button
+              className="absolute top-2 right-2 text-white bg-black bg-opacity-50 p-2 rounded-full"
+              onClick={() => setSelectedItem(null)}
+            >
               ×
             </button>
           </div>

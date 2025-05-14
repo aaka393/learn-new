@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
@@ -9,6 +8,7 @@ import EventDetailPage from './pages/EventDetailPage';
 import GalleryPage from './pages/GalleryPage';
 import StaticPage from './pages/StaticPage';
 import PageNotFound from './pages/PageNotFound';
+import GalleryViewer from './pages/GalleryViewer';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:slug" element={<EventDetailPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/album" element={<GalleryViewer />} />
           
           {/* Static pages from WordPress */}
           <Route path="/:slug" element={<StaticPage />} />

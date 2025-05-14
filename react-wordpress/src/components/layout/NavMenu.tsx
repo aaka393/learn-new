@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { fetchPages, fetchCategories } from '../../services/api';
@@ -11,6 +11,27 @@ const NavMenu: React.FC = () => {
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isPageDropdownOpen, setIsPageDropdownOpen] = useState(false);
   const location = useLocation();
+
+  const pageDropdownRef = useRef<HTMLDivElement | null>(null);
+  const categoryDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const handleLogin = async () => {
+    const response = await fetch("http://192.168.0.104:8001/wp-json/jwt-auth/v1/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username: "admin", password: "yensi123" })
+    });
+
+    const data = await response.json();
+    if (data.token) {
+      localStorage.setItem("token", data.token); // Save token for future requests
+      alert("Login successful!");
+    } else {
+      alert("Login failed!");
+    }
+  };
 
   useEffect(() => {
     const loadMenuItems = async () => {
@@ -41,6 +62,26 @@ const NavMenu: React.FC = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (pageDropdownRef.current && !pageDropdownRef.current.contains(event.target as Node)) {
+        setIsPageDropdownOpen(false);
+      }
+      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target as Node)) {
+        setIsCategoryDropdownOpen(false);
+      }
+    };
+
+    // Listen for click events on the document
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="bg-white shadow-md sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,8 +97,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/"
               className={`px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Home
@@ -66,8 +107,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/posts"
               className={`px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/posts'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Blog
@@ -76,8 +117,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/events"
               className={`px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/events'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Events
@@ -86,47 +127,56 @@ const NavMenu: React.FC = () => {
             <Link
               to="/gallery"
               className={`px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/gallery'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Gallery
             </Link>
 
+            <Link
+              to="/album"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/album'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                }`}
+            >
+              Album
+            </Link>
+
             {/* Dynamic pages from WordPress */}
             {pages.length > 0 && (
-                          <div className="relative">
-                            <button
-                              className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                              onClick={() => setIsPageDropdownOpen(!isPageDropdownOpen)} // Toggle page dropdown
-                            >
-                              Pages
-                              <ChevronDown className="ml-1 h-4 w-4" />
-                            </button>
-            
-                            {isPageDropdownOpen && (
-                              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                <div className="py-1" role="menu" aria-orientation="vertical">
-                                  {pages.map((page) => (
-                                    <Link
-                                      key={page.id}
-                                      to={`/${page.slug}`}
-                                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                      role="menuitem"
-                                      onClick={() => setIsPageDropdownOpen(false)} // Close dropdown when a link is clicked
-                                    >
-                                      {page.title.rendered}
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
+              <div ref={pageDropdownRef} className="relative">
+                <button
+                  className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                  onClick={() => setIsPageDropdownOpen(!isPageDropdownOpen)} // Toggle page dropdown
+                >
+                  Pages
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+                {isPageDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="py-1" role="menu" aria-orientation="vertical">
+                      {pages.map((page) => (
+                        <Link
+                          key={page.id}
+                          to={`/${page.slug}`}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                          onClick={() => setIsPageDropdownOpen(false)} // Close dropdown when a link is clicked
+                        >
+                          {page.title.rendered}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Categories dropdown */}
             {categories.length > 0 && (
-              <div className="relative">
+              <div ref={categoryDropdownRef} className="relative">
                 <button
                   className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                   onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
@@ -154,6 +204,12 @@ const NavMenu: React.FC = () => {
                 )}
               </div>
             )}
+            <button
+              className="px-4 py-2 rounded-md text-sm font-medium text-blue-600 hover:bg-gray-50"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -181,8 +237,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/"
               className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Home
@@ -191,8 +247,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/posts"
               className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/posts'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Blog
@@ -201,8 +257,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/events"
               className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/events'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Events
@@ -211,8 +267,8 @@ const NavMenu: React.FC = () => {
             <Link
               to="/gallery"
               className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/gallery'
-                  ? 'text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                ? 'text-blue-600 font-semibold'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
             >
               Gallery
@@ -224,8 +280,8 @@ const NavMenu: React.FC = () => {
                 key={page.id}
                 to={`/${page.slug}`}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === `/${page.slug}`
-                    ? 'text-blue-600 font-semibold'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                  ? 'text-blue-600 font-semibold'
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                   }`}
               >
                 {page.title.rendered}

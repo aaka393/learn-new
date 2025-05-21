@@ -13,7 +13,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://192.168.0.105:8001/wp-json/wp/v2/posts");
+        const response = await fetch("http://192.168.0:105:8001/wp-json/wp/v2/posts");
         if (!response.ok) {
           throw new Error("HTTP error! status: " + response.status);
         }

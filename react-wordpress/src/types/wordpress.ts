@@ -28,6 +28,7 @@ export interface WordPressPost {
 }
 
 export interface WordPressPage {
+  acf: WordPressPage | null;
   id: number;
   slug: string;
   title: {

@@ -1,0 +1,77 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Article, ApiResponse } from './types/Article';
+import { Loader2, AlertTriangle } from 'lucide-react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+
+import Home from './components/Home';
+import Articles from './components/Articles';
+import About from './components/About';
+import Author from './components/Author';
+
+function App() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await axios.get<ApiResponse>('http://localhost:1337/api/articles?populate=*');
+        setArticles(response.data.data);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load articles. Please try again.');
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="inline-block animate-spin text-blue-500 h-8 w-8 mb-2" />
+          <p className="text-gray-600 dark:text-gray-400">Loading articles...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <AlertTriangle className="inline-block text-red-500 h-8 w-8 mb-2" />
+          <p className="text-red-600 dark:text-red-400">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+        <Header />
+
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/articles" element={<Articles articles={articles} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/author" element={<Author />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;

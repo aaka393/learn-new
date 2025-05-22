@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchAuthorData } from '../services/service';
 
 interface AuthorData {
   id: number;
@@ -13,25 +13,19 @@ const Author: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchAuthorData = async () => {
+    const loadAuthorData = async () => {
       try {
-        const response = await axios.get('http://localhost:1337/api/articles?populate=author');
-        // Extract author from the first article in the response
-        console.log(response)
-        const articles = response.data.data;
-        if (articles && articles.length > 0 && articles[1].author) {
-          setAuthorData(articles[1].author);
-        } else {
-          setError('No author data found.');
-        }
+        const author = await fetchAuthorData();
+        console.log(author)
+        setAuthorData(author);
         setLoading(false);
-      } catch (err) {
+      } catch (err: any) {
         setError('Failed to load author data. Please try again.');
         setLoading(false);
       }
     };
 
-    fetchAuthorData();
+    loadAuthorData();
   }, []);
 
   if (loading) {

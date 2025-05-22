@@ -2,26 +2,23 @@ import React from 'react';
 import { Article } from '../types/Article';
 import { format } from 'date-fns';
 import { Link } from 'lucide-react';
+import { getArticleCover, getArticleCategory } from '../services/service';
 
 interface ArticleCardProps {
   article: Article;
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
-  const baseUrl = 'http://localhost:1337';
-  const cover = article.cover?.formats?.medium?.url ? `${baseUrl}${article.cover.formats.medium.url}` :
-    article.cover?.formats?.small?.url ? `${baseUrl}${article.cover.formats.small.url}` :
-    'https://source.unsplash.com/random/400x300'; // Fallback image
-  const category = article.category?.name || 'Uncategorized';
-
-  const formattedDate = format(new Date(article.publishedAt), 'MMM dd, yyyy');
+  const cover = getArticleCover(article);
+  const category = getArticleCategory(article);
+  const formattedDate = format(new Date(article.publishedAt), 'MMM dd, yyyy - hh:mm a');
 
   return (
     <div className="rounded-2xl shadow-md p-4 m-4 flex flex-col h-full">
       <img
         src={cover}
         alt={article.title}
-        className="rounded-t-2xl h-48 w-full object-cover mb-4"
+        className="rounded-t-2xl h-48 w-full  mb-4"
       />
       <div className="flex-grow">
         <h2 className="text-xl font-semibold mb-2">{article.title}</h2>

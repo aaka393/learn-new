@@ -23,6 +23,17 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_menu_items';
+  info: {
+    displayName: 'menu_item';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedQuote extends Struct.ComponentSchema {
   collectionName: 'components_shared_quotes';
   info: {
@@ -79,6 +90,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'shared.image': SharedImage;
       'shared.media': SharedMedia;
+      'shared.menu-item': SharedMenuItem;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;

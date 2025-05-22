@@ -1,36 +1,35 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Article, ApiResponse } from './types/Article';
+import { Article } from './types/Article';
 import { Loader2, AlertTriangle } from 'lucide-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { fetchArticles } from './services/service';
 
 import Home from './components/Home';
 import Articles from './components/Articles';
 import About from './components/About';
 import Author from './components/Author';
+import ArticlePage from './components/ArticlePage';
 
 function App() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-
-
   useEffect(() => {
-    const fetchArticles = async () => {
+    const loadArticles = async () => {
       try {
-        const response = await axios.get<ApiResponse>('http://localhost:1337/api/articles?populate=*');
-        setArticles(response.data.data);
+        const fetchedArticles = await fetchArticles();
+        setArticles(fetchedArticles);
         setLoading(false);
-      } catch (err) {
+      } catch (err: any) {
         setError('Failed to load articles. Please try again.');
         setLoading(false);
       }
     };
 
-    fetchArticles();
+    loadArticles();
   }, []);
 
   if (loading) {
@@ -59,13 +58,13 @@ function App() {
     <Router>
       <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
         <Header />
-
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/articles" element={<Articles articles={articles} />} />
             <Route path="/about" element={<About />} />
             <Route path="/author" element={<Author />} />
+            <Route path="/article/:slug" element={<ArticlePage />} />
           </Routes>
         </div>
         <Footer />

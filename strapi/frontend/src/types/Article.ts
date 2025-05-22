@@ -1,9 +1,15 @@
 export interface Article {
+  coverMedia: any;
+  textContent: string | null | undefined;
+  markdownContent: string | null | undefined;
   id: number;
   title: string;
   description: string;
   slug: string;
   publishedAt: string;
+  author: {
+    name: string;
+  }
   cover: {
     formats: {
       medium: CoverFormat | null;

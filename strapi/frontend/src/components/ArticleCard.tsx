@@ -10,6 +10,7 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const cover = getArticleCover(article);
+  console.log(cover)
   const category = getArticleCategory(article);
   const formattedDate = format(new Date(article.publishedAt), 'MMM dd, yyyy - hh:mm a');
 
@@ -18,7 +19,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       <img
         src={cover}
         alt={article.title}
-        className="rounded-t-2xl h-48 w-full  mb-4"
+        className="rounded-t-2xl h-48 w-full mb-4 cursor-pointer"
       />
       <div className="flex-grow">
         <h2 className="text-xl font-semibold mb-2">{article.title}</h2>

@@ -1,5 +1,68 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SharedContact extends Struct.ComponentSchema {
+  collectionName: 'components_shared_contacts';
+  info: {
+    description: '';
+    displayName: 'contact';
+    icon: 'bold';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean;
+    type: Schema.Attribute.Enumeration<['text, email, textarea']> &
+      Schema.Attribute.DefaultTo<'text, email, textarea'>;
+  };
+}
+
+export interface SharedCta extends Struct.ComponentSchema {
+  collectionName: 'components_shared_ctas';
+  info: {
+    description: '';
+    displayName: 'cta';
+    icon: 'bold';
+  };
+  attributes: {
+    buttonText: Schema.Attribute.String;
+    buttonUrl: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedFeature extends Struct.ComponentSchema {
+  collectionName: 'components_shared_features';
+  info: {
+    description: '';
+    displayName: 'feature';
+    icon: 'bold';
+  };
+  attributes: {
+    description: Schema.Attribute.Blocks;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedHero extends Struct.ComponentSchema {
+  collectionName: 'components_shared_heroes';
+  info: {
+    description: '';
+    displayName: 'hero';
+    icon: 'bold';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    buttonText: Schema.Attribute.String;
+    buttonUrl: Schema.Attribute.String;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedImage extends Struct.ComponentSchema {
   collectionName: 'components_shared_images';
   info: {
@@ -15,11 +78,12 @@ export interface SharedImage extends Struct.ComponentSchema {
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
+    description: '';
     displayName: 'Media';
     icon: 'file-video';
   };
   attributes: {
-    file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    media: Schema.Attribute.Media<'images' | 'videos' | 'audios' | 'files'>;
   };
 }
 
@@ -85,9 +149,26 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedVideoBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_video_blocks';
+  info: {
+    displayName: 'video-block';
+    icon: 'bold';
+  };
+  attributes: {
+    poster: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+    videoUrl: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'shared.contact': SharedContact;
+      'shared.cta': SharedCta;
+      'shared.feature': SharedFeature;
+      'shared.hero': SharedHero;
       'shared.image': SharedImage;
       'shared.media': SharedMedia;
       'shared.menu-item': SharedMenuItem;
@@ -95,6 +176,7 @@ declare module '@strapi/strapi' {
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.video-block': SharedVideoBlock;
     }
   }
 }

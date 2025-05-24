@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { fetchAboutData, getAboutImageUrl } from '../services/service';
+import { fetchAboutData } from '../services/service';
+import { baseUrl } from '../constants/appConstants';
 
 interface AboutBlock {
   __component: string;
@@ -8,6 +9,9 @@ interface AboutBlock {
   title?: string;
   body?: string;
   url?: string;
+  media?: {
+    url?: string;
+  }
   formats?: {
     medium?: { url: string };
     small?: { url: string };
@@ -44,39 +48,47 @@ const About: React.FC = () => {
   if (!aboutData) return null;
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">{aboutData?.title}</h1>
+    <main className="max-w-4xl mx-auto p-6">
+      <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white mb-10 text-center">
+        {aboutData?.title}
+      </h1>
 
       {aboutData?.blocks.map((block: AboutBlock, index: number) => {
         const key = `${block.__component}-${block.id}-${index}`;
+
         switch (block.__component) {
           case 'shared.quote':
             return (
               <div
                 key={key}
-                className="bg-blue-100 dark:bg-blue-900 p-4 rounded-xl shadow mb-6 border-l-4 border-blue-500"
+                className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-800 p-6 rounded-xl shadow-md mb-8"
               >
-                <p className="italic text-gray-800 dark:text-gray-200">"{block.body}"</p>
-                <p className="text-right font-semibold text-blue-700 dark:text-blue-300 mt-2">– {block.title}</p>
+                <p className="text-xl italic text-gray-800 dark:text-gray-100">"{block.body}"</p>
+                <p className="text-right text-blue-800 dark:text-blue-300 font-semibold mt-4">
+                  – {block.title}
+                </p>
               </div>
             );
 
           case 'shared.rich-text':
             return (
-              <div key={key} className="prose dark:prose-invert max-w-none mb-6">
+              <div
+                key={key}
+                className="prose dark:prose-invert max-w-none mb-8 prose-h1:text-3xl prose-h2:text-2xl prose-p:text-lg"
+              >
                 <ReactMarkdown>{block.body || ''}</ReactMarkdown>
               </div>
             );
 
           case 'shared.media':
-            const imageUrl = getAboutImageUrl(block);
+            const imageUrl = (`${baseUrl}${block?.media?.url}`);
             return (
-              <div key={key} className="mb-6">
+              <div key={key} className="mb-8">
                 {imageUrl && (
                   <img
                     src={imageUrl}
                     alt="About Media"
-                    className="rounded-xl shadow-md w-full object-cover"
+                    className="rounded-xl shadow-lg w-full object-cover"
                   />
                 )}
               </div>
@@ -86,7 +98,6 @@ const About: React.FC = () => {
             return null;
         }
       })}
-
     </main>
   );
 };

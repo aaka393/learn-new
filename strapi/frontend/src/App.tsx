@@ -11,6 +11,8 @@ import Articles from './components/Articles';
 import About from './components/About';
 import Author from './components/Author';
 import ArticlePage from './components/ArticlePage';
+import Gallery from './components/Gallery';
+import { ContactPage } from './components/ContactPage';
 
 function App() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -63,7 +65,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/articles" element={<Articles articles={articles} />} />
             <Route path="/about" element={<About />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/author" element={<Author />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/article/:slug" element={<ArticlePage />} />
           </Routes>
         </div>

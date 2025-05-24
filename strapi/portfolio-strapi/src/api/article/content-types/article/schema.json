@@ -54,6 +54,9 @@
     },
     "markdownContent": {
       "type": "richtext"
+    },
+    "email": {
+      "type": "email"
     }
   }
 }

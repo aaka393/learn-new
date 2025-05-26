@@ -1,7 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
-import { v2 as cloudinary } from 'cloudinary';
 
 // Configuration
 cloudinary.config({
@@ -24,3 +23,5 @@ const uploadOnCloudinary = async (localFilePath) => {
         fs.unlinkSync(localFilePath)   //remove the locally saved temporary file as the upload operation got failed
     }
 }
+
+export { uploadOnCloudinary };

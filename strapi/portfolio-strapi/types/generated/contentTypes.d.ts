@@ -664,7 +664,7 @@ export interface ApiHomepageHomepage extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    seo_description: Schema.Attribute.String;
+    seo_description: Schema.Attribute.Text;
     seo_title: Schema.Attribute.String;
     slug: Schema.Attribute.UID;
     title: Schema.Attribute.String;

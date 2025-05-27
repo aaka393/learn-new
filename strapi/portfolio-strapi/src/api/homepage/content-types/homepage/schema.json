@@ -21,7 +21,7 @@
       "type": "string"
     },
     "seo_description": {
-      "type": "string"
+      "type": "text"
     },
     "blocks": {
       "type": "dynamiczone",

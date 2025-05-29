@@ -4,6 +4,24 @@ import { Article, ApiResponse } from '../types/Article';
 import { HeaderData, MenuItem } from '../types/Header';
 import { API_BASE_URL, baseUrl } from "../constants/appConstants";
 import { HomepageData } from '../types/Homepage';
+import { Album } from '../types/albums';
+import { FooterData } from '../types/footer';
+
+export const getAlbums = async (): Promise<Album[]> => {
+  const response = await axios.get(`${API_BASE_URL}/albums?[populate]=*`)
+  return response.data.data
+}
+
+export const fetchFooterData = async (): Promise<FooterData | null> => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/footers?populate[footer_columns][populate]=footer_links&populate=social_links`);
+    const item = res.data?.data?.[0];
+    return item || null;
+  } catch (error) {
+    console.error('Error fetching footer data:', error);
+    return null;
+  }
+};
 
 export const fetchHeaderData = async (): Promise<HeaderData | null> => {
   try {
@@ -18,7 +36,6 @@ export const fetchHeaderData = async (): Promise<HeaderData | null> => {
       label: item.label,
       slug: item.slug.trim(),
     }));
-
     return { title, menu_items: cleanedMenuItems };
   } catch (error) {
     console.error('Error fetching header data:', error);
@@ -27,7 +44,6 @@ export const fetchHeaderData = async (): Promise<HeaderData | null> => {
 };
 
 export const fetchHomepageData = async (): Promise<HomepageData> => {
-  // const res = await axios.get(`${API_BASE_URL}/homepages?populate[blocks][populate]=*`);
   const res = await axios.get(`${API_BASE_URL}/homepages?populate[hero][populate]=backgroundImage&populate[showcases][populate]=imageUrl&populate[story][populate]=backgroundImage&populate[blocks][populate]=*`)
   const homepage = res.data.data?.[0];
   if (!homepage) {
@@ -75,16 +91,6 @@ export const fetchHomepageData = async (): Promise<HomepageData> => {
   };
 };
 
-export const fetchFooterData = async (): Promise<{ text: string } | null> => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/footers?populate=*`);
-    const firstItem = response.data.data[0];
-    return firstItem ? { text: firstItem.text } : null;
-  } catch (error) {
-    console.error('Error fetching footer data:', error);
-    return null;
-  }
-};
 
 export const fetchArticles = async (): Promise<Article[]> => {
   try {

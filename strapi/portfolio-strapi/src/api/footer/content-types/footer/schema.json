@@ -4,7 +4,8 @@
   "info": {
     "singularName": "footer",
     "pluralName": "footers",
-    "displayName": "Footer"
+    "displayName": "Footer",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,6 +13,19 @@
   "attributes": {
     "text": {
       "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "social_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.social-link"
+    },
+    "footer_columns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-column"
     }
   }
 }

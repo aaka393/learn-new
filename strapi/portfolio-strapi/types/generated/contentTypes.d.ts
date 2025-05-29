@@ -411,6 +411,39 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAlbumAlbum extends Struct.CollectionTypeSchema {
+  collectionName: 'albums';
+  info: {
+    description: '';
+    displayName: 'album';
+    pluralName: 'albums';
+    singularName: 'album';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::album.album'> &
+      Schema.Attribute.Private;
+    photos: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -555,6 +588,7 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
 export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
   collectionName: 'footers';
   info: {
+    description: '';
     displayName: 'Footer';
     pluralName: 'footers';
     singularName: 'footer';
@@ -566,6 +600,8 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks;
+    footer_columns: Schema.Attribute.Component<'footer.footer-column', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -573,6 +609,7 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    social_links: Schema.Attribute.Component<'footer.social-link', true>;
     text: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1284,6 +1321,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
+      'api::album.album': ApiAlbumAlbum;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;

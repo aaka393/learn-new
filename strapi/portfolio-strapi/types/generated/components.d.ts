@@ -74,6 +74,46 @@ export interface FeatureFeatureItem extends Struct.ComponentSchema {
   };
 }
 
+export interface FooterFooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_columns';
+  info: {
+    description: '';
+    displayName: 'footer-column';
+    icon: 'bold';
+  };
+  attributes: {
+    footer_links: Schema.Attribute.Component<'footer.link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface FooterLink extends Struct.ComponentSchema {
+  collectionName: 'components_footer_links';
+  info: {
+    displayName: 'link';
+    icon: 'bold';
+  };
+  attributes: {
+    name: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface FooterSocialLink extends Struct.ComponentSchema {
+  collectionName: 'components_footer_social_links';
+  info: {
+    description: '';
+    displayName: 'social-link';
+    icon: 'bold';
+  };
+  attributes: {
+    platform: Schema.Attribute.Enumeration<
+      ['Mail', 'Github', 'Twitter', 'Linkedin', 'Instagram']
+    >;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface SharedContact extends Struct.ComponentSchema {
   collectionName: 'components_shared_contacts';
   info: {
@@ -279,6 +319,9 @@ declare module '@strapi/strapi' {
       'about.value-item': AboutValueItem;
       'about.values': AboutValues;
       'feature.feature-item': FeatureFeatureItem;
+      'footer.footer-column': FooterFooterColumn;
+      'footer.link': FooterLink;
+      'footer.social-link': FooterSocialLink;
       'shared.contact': SharedContact;
       'shared.cta': SharedCta;
       'shared.feature': SharedFeature;

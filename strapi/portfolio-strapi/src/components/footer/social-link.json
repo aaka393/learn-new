@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_footer_social_links",
+  "info": {
+    "displayName": "social-link",
+    "icon": "bold",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "Mail",
+        "Github",
+        "Twitter",
+        "Linkedin",
+        "Instagram"
+      ]
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

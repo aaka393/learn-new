@@ -7,6 +7,7 @@ import ArticlePage from './pages/ArticlePage';
 import About from './pages/About';
 import Author from './pages/Author';
 import Gallery from './pages/Gallery';
+import AlbumGallery from './components/Album/AlbumGallery';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/author" element={<Author />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/album" element={<AlbumGallery />} />
           </Routes>
         </main>
         <Footer />

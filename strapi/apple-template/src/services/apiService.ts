@@ -27,7 +27,8 @@ export const fetchHeaderData = async (): Promise<HeaderData | null> => {
 };
 
 export const fetchHomepageData = async (): Promise<HomepageData> => {
-  const res = await axios.get(`${API_BASE_URL}/homepages?populate[blocks][populate]=*`);
+  // const res = await axios.get(`${API_BASE_URL}/homepages?populate[blocks][populate]=*`);
+  const res = await axios.get(`${API_BASE_URL}/homepages?populate[hero][populate]=backgroundImage&populate[showcases][populate]=imageUrl&populate[story][populate]=backgroundImage&populate[blocks][populate]=*`)
   const homepage = res.data.data?.[0];
   if (!homepage) {
     throw new Error('Homepage data missing');
@@ -39,6 +40,38 @@ export const fetchHomepageData = async (): Promise<HomepageData> => {
     seo_title: homepage.seo_title || '',
     seo_description: homepage.seo_description || '',
     blocks: homepage.blocks || [],
+    hero: {
+      title: homepage.hero?.title || '',
+      subtitle: homepage.hero?.subtitle || '',
+      description: homepage.hero?.description || '',
+      buttonText: homepage.hero?.buttonText || '',
+      buttonUrl: homepage.hero?.buttonUrl || '',
+      backgroundImage: baseUrl + (homepage.hero?.backgroundImage?.url || ''),
+    },
+    showcases: (homepage.showcases || []).map((item: any) => ({
+      title: item.title,
+      description: item.description,
+      imageUrl: baseUrl + (
+        item.imageUrl?.formats?.medium?.url ||
+        item.imageUrl?.formats?.small?.url ||
+        item.imageUrl?.url ||
+        ''
+      ),
+      buttonText: item.buttonText,
+      buttonLink: item.buttonLink,
+      imagePosition: item.imagePosition,
+    })),
+    story: {
+      title: homepage.story?.title || '',
+      subtitle: homepage.story?.subtitle || '',
+      description: homepage.story?.description || '',
+      backgroundImage: baseUrl + (
+        homepage.story?.backgroundImage?.formats?.medium?.url ||
+        homepage.story?.backgroundImage?.url ||
+        ''
+      ),
+      buttonText: homepage.story?.buttonText || '',
+    },
   };
 };
 
@@ -79,7 +112,7 @@ export const fetchArticleBySlug = async (slug: string): Promise<Article | null> 
 
 export const fetchAboutData = async (): Promise<any> => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/about?populate=blocks.media`);
+    const res = await axios.get(`${API_BASE_URL}/about?populate[blocks][populate]=*`);
     return res.data.data;
   } catch (error) {
     console.error('Failed to load About content:', error);

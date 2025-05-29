@@ -71,7 +71,7 @@ const Gallery: React.FC = () => {
     {
       id: 6,
       name: "Innovation Hub",
-      url: "https://images.pexels.com/photos/3861967/pexels-photo-3861967.jpeg",
+      url: "https://images.pexe`ls.com/photos/3861967/pexels-photo-3861967.jpeg",
       formats: {}
     }
   ];

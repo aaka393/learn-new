@@ -17,7 +17,18 @@
     },
     "blocks": {
       "type": "dynamiczone",
-      "components": ["shared.media", "shared.quote", "shared.rich-text", "shared.slider"]
+      "components": [
+        "shared.media",
+        "shared.quote",
+        "shared.rich-text",
+        "shared.slider",
+        "about.values",
+        "about.team",
+        "about.section"
+      ]
+    },
+    "subtitle": {
+      "type": "string"
     }
   }
 }

@@ -32,6 +32,21 @@
         "shared.hero",
         "shared.rich-text"
       ]
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.hero"
+    },
+    "showcases": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.showcase"
+    },
+    "story": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.story"
     }
   }
 }

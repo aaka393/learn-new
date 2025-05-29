@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_about_teams",
+  "info": {
+    "displayName": "team",
+    "icon": "bold"
+  },
+  "options": {},
+  "attributes": {
+    "teamMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.team-member"
+    }
+  }
+}

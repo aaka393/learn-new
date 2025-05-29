@@ -39,6 +39,7 @@ export interface HomepageData {
   hero: {
     title: string;
     subtitle: string;
+    buttonUrl: string;
     description: string;
     buttonText: string;
     backgroundImage: string;

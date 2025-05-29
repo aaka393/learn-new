@@ -10,18 +10,13 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "blocks"
+    "subtitle": {
+      "type": "string"
     },
-    "icon": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": false
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "feature.feature-item"
     }
   }
 }

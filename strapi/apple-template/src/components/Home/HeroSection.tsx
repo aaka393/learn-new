@@ -17,9 +17,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   subtitle,
   description,
-  buttonText = 'Learn More',
-  buttonLink = '#',
-  backgroundImage = 'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg',
+  buttonText,
+  buttonLink,
+  backgroundImage,
 }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,

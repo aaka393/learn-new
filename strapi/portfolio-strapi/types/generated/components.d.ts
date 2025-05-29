@@ -1,5 +1,79 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AboutSection extends Struct.ComponentSchema {
+  collectionName: 'components_about_sections';
+  info: {
+    displayName: 'section';
+    icon: 'bold';
+  };
+  attributes: {
+    content: Schema.Attribute.Blocks;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+  };
+}
+
+export interface AboutTeam extends Struct.ComponentSchema {
+  collectionName: 'components_about_teams';
+  info: {
+    displayName: 'team';
+    icon: 'bold';
+  };
+  attributes: {
+    teamMembers: Schema.Attribute.Component<'about.team-member', true>;
+  };
+}
+
+export interface AboutTeamMember extends Struct.ComponentSchema {
+  collectionName: 'components_about_team_members';
+  info: {
+    displayName: 'team-member';
+    icon: 'bold';
+  };
+  attributes: {
+    bio: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    role: Schema.Attribute.String;
+  };
+}
+
+export interface AboutValueItem extends Struct.ComponentSchema {
+  collectionName: 'components_about_value_items';
+  info: {
+    displayName: 'value-item';
+    icon: 'bold';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface AboutValues extends Struct.ComponentSchema {
+  collectionName: 'components_about_values';
+  info: {
+    description: '';
+    displayName: 'values';
+    icon: 'bold';
+  };
+  attributes: {
+    values: Schema.Attribute.Component<'about.value-item', true>;
+  };
+}
+
+export interface FeatureFeatureItem extends Struct.ComponentSchema {
+  collectionName: 'components_feature_feature_items';
+  info: {
+    description: '';
+    displayName: 'feature-item';
+  };
+  attributes: {
+    description: Schema.Attribute.Blocks;
+    icon: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedContact extends Struct.ComponentSchema {
   collectionName: 'components_shared_contacts';
   info: {
@@ -39,8 +113,8 @@ export interface SharedFeature extends Struct.ComponentSchema {
     icon: 'bold';
   };
   attributes: {
-    description: Schema.Attribute.Blocks;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    features: Schema.Attribute.Component<'feature.feature-item', true>;
+    subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -138,6 +212,22 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedShowcase extends Struct.ComponentSchema {
+  collectionName: 'components_shared_showcases';
+  info: {
+    description: '';
+    displayName: 'showcase';
+    icon: 'bold';
+  };
+  attributes: {
+    buttonText: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    imagePosition: Schema.Attribute.Enumeration<['left', 'right']>;
+    imageUrl: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedSlider extends Struct.ComponentSchema {
   collectionName: 'components_shared_sliders';
   info: {
@@ -147,6 +237,23 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
   attributes: {
     files: Schema.Attribute.Media<'images', true>;
+  };
+}
+
+export interface SharedStory extends Struct.ComponentSchema {
+  collectionName: 'components_shared_stories';
+  info: {
+    displayName: 'story';
+    icon: 'bold';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    buttonText: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -166,6 +273,12 @@ export interface SharedVideoBlock extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'about.section': AboutSection;
+      'about.team': AboutTeam;
+      'about.team-member': AboutTeamMember;
+      'about.value-item': AboutValueItem;
+      'about.values': AboutValues;
+      'feature.feature-item': FeatureFeatureItem;
       'shared.contact': SharedContact;
       'shared.cta': SharedCta;
       'shared.feature': SharedFeature;
@@ -176,7 +289,9 @@ declare module '@strapi/strapi' {
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
+      'shared.showcase': SharedShowcase;
       'shared.slider': SharedSlider;
+      'shared.story': SharedStory;
       'shared.video-block': SharedVideoBlock;
     }
   }

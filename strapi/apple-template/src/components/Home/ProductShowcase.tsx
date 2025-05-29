@@ -1,4 +1,3 @@
-//ProductShowcase.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -18,7 +17,7 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
   description,
   imageUrl,
   buttonText,
-  buttonLink = '#',
+  buttonLink,
   imagePosition = 'right',
 }) => {
   const [ref, inView] = useInView({
@@ -35,8 +34,8 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
         staggerChildren: 0.1,
-      }
-    }
+      },
+    },
   };
 
   const imageVariants = {
@@ -46,9 +45,9 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
       x: 0,
       transition: {
         duration: 0.6,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
   };
 
   const childVariants = {
@@ -56,8 +55,8 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   return (
@@ -72,11 +71,11 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
             className={`md:col-span-7 ${imagePosition === 'right' ? 'md:order-2' : 'md:order-1'}`}
             variants={imageVariants}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
+            animate={inView ? 'visible' : 'hidden'}
           >
             <div className="relative overflow-hidden rounded-2xl shadow-xl">
               <img
-                src={imageUrl || 'https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg'}
+                src={imageUrl}
                 alt={title}
                 className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
               />
@@ -88,7 +87,7 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
             className={`md:col-span-5 ${imagePosition === 'right' ? 'md:order-1' : 'md:order-2'}`}
             variants={textVariants}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
+            animate={inView ? 'visible' : 'hidden'}
           >
             <motion.h2
               className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
@@ -104,20 +103,15 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({
               {description}
             </motion.p>
 
-            {buttonText && (
+            {buttonText && buttonLink && (
               <motion.div variants={childVariants}>
-                <Button
-                  variant="primary"
-                  size="md"
-                  href={buttonLink}
-                >
+                <Button variant="primary" size="md" href={buttonLink}>
                   {buttonText}
                 </Button>
               </motion.div>
             )}
           </motion.div>
         </div>
-
       </div>
     </section>
   );

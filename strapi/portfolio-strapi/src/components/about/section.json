@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_about_sections",
+  "info": {
+    "displayName": "section",
+    "icon": "bold"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "blocks"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

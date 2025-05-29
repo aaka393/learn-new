@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_feature_feature_items",
+  "info": {
+    "displayName": "feature-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}

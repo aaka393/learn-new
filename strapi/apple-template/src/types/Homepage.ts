@@ -57,6 +57,7 @@ export interface HomepageData {
     description: string;
     backgroundImage: string;
     buttonText: string;
+    buttonUrl: string
   };
 }
 

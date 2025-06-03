@@ -44,7 +44,7 @@ const Home: React.FC = () => {
     );
   }
   const { hero, showcases, story, blocks } = homepageData;
-  console.log(blocks);
+  console.log(story)
   const featureBlock = blocks.find(block => block.__component === 'shared.feature');
 
 
@@ -91,6 +91,7 @@ const Home: React.FC = () => {
           description={story.description}
           backgroundImage={story.backgroundImage}
           buttonText={story.buttonText}
+          buttonUrl={story.buttonUrl}
         />
       )}
     </main>

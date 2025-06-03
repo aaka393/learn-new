@@ -1,2 +1,2 @@
-export const API_BASE_URL = 'http://localhost:1337/api';
-export const baseUrl = 'http://localhost:1337';
+export const API_BASE_URL = '/api';
+export const baseUrl = 'http://192.168.0.105:1337';

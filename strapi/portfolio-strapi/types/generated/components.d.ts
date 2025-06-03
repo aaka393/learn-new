@@ -283,6 +283,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
 export interface SharedStory extends Struct.ComponentSchema {
   collectionName: 'components_shared_stories';
   info: {
+    description: '';
     displayName: 'story';
     icon: 'bold';
   };
@@ -291,6 +292,7 @@ export interface SharedStory extends Struct.ComponentSchema {
       'images' | 'files' | 'videos' | 'audios'
     >;
     buttonText: Schema.Attribute.String;
+    buttonUrl: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String;

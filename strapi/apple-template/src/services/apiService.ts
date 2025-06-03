@@ -87,6 +87,7 @@ export const fetchHomepageData = async (): Promise<HomepageData> => {
         ''
       ),
       buttonText: homepage.story?.buttonText || '',
+      buttonUrl: homepage.story?.buttonUrl || '',
     },
   };
 };

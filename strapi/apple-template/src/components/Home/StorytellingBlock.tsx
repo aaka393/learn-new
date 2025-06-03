@@ -11,6 +11,7 @@ interface StorytellingBlockProps {
   backgroundImage: string;
   buttonText?: string;
   buttonLink?: string;
+  buttonUrl?: string;
   alignment?: 'left' | 'center' | 'right';
 }
 
@@ -20,6 +21,7 @@ const StorytellingBlock: React.FC<StorytellingBlockProps> = ({
   description,
   backgroundImage,
   buttonText,
+  buttonUrl,
   buttonLink = '#',
   alignment = 'center',
 }) => {
@@ -55,56 +57,56 @@ const StorytellingBlock: React.FC<StorytellingBlockProps> = ({
   };
 
   return (
-    <section 
+    <section
       ref={ref}
       className="relative w-full min-h-[600px] overflow-hidden"
     >
       {/* Background Image */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         <div className="absolute inset-0 bg-black/60" />
       </div>
-      
+
       {/* Content */}
       <div className="relative z-10 h-full flex items-center px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-7xl mx-auto w-full">
-          <motion.div 
+          <motion.div
             className={`max-w-2xl flex flex-col ${textAlignmentClass[alignment]} mx-auto md:mx-0 md:ml-${alignment === 'right' ? 'auto' : alignment === 'center' ? 'auto' : '0'}`}
             variants={containerVariants}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
             {subtitle && (
-              <motion.p 
+              <motion.p
                 variants={itemVariants}
                 className="text-blue-400 font-medium mb-3"
               >
                 {subtitle}
               </motion.p>
             )}
-            
-            <motion.h2 
+
+            <motion.h2
               variants={itemVariants}
               className="text-3xl md:text-4xl font-bold text-white mb-6"
             >
               {title}
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               variants={itemVariants}
               className="text-lg text-gray-200 mb-8 leading-relaxed"
             >
               {description}
             </motion.p>
-            
+
             {buttonText && (
               <motion.div variants={itemVariants}>
-                <Button 
-                  variant="primary" 
-                  size="md" 
-                  href={buttonLink}
+                <Button
+                  variant="primary"
+                  size="md"
+                  href={buttonUrl}
                 >
                   {buttonText}
                 </Button>

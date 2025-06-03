@@ -2,7 +2,8 @@
   "collectionName": "components_shared_stories",
   "info": {
     "displayName": "story",
-    "icon": "bold"
+    "icon": "bold",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -16,16 +17,20 @@
       "type": "text"
     },
     "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "buttonText": {
+      "type": "string"
+    },
+    "buttonUrl": {
       "type": "string"
     }
   }

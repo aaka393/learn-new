@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { fetchArticleBySlug, getArticleCover, getArticleCategory } from '../services/apiService';
 import { Article } from '../types/Article';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
+import { ArrowLeft, Calendar, User } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 const ArticlePage: React.FC = () => {

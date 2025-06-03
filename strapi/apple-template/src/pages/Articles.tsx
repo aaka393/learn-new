@@ -37,8 +37,10 @@ const Articles: React.FC = () => {
   }, []);
 
   const filteredArticles = activeFilter === 'all' 
-    ? articles 
-    : articles.filter(article => article.category?.name === activeFilter);
+  ? articles.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())  
+  : articles.filter(article => article.category?.name === activeFilter)
+            .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()); 
+
 
   if (loading) {
     return (

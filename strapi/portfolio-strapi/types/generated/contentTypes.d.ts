@@ -670,7 +670,7 @@ export interface ApiHeaderHeader extends Struct.CollectionTypeSchema {
       'api::header.header'
     > &
       Schema.Attribute.Private;
-    menu_items: Schema.Attribute.Component<'shared.menu-item', true>;
+    menu_items: Schema.Attribute.Component<'header.menu-item', true>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -693,11 +693,11 @@ export interface ApiHomepageHomepage extends Struct.CollectionTypeSchema {
   attributes: {
     blocks: Schema.Attribute.DynamicZone<
       [
-        'shared.video-block',
         'shared.cta',
         'shared.feature',
         'shared.hero',
         'shared.rich-text',
+        'shared.video-block',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;

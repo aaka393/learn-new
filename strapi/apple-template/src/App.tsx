@@ -8,8 +8,10 @@ import About from './pages/About';
 import Author from './pages/Author';
 import Gallery from './pages/Gallery';
 import AlbumGallery from './components/Album/AlbumGallery';
+import { clarity } from 'react-microsoft-clarity';
 
 function App() {
+   clarity.init('o1ckozw510')
   return (
     <Router>
       <div className="flex flex-col min-h-screen">

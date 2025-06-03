@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-06-03T06:28:32.184Z"
+    "x-generation-date": "2025-06-03T10:32:20.780Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -15523,7 +15523,7 @@
               "menu_items": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/SharedMenuItemComponent"
+                  "$ref": "#/components/schemas/HeaderMenuItemComponent"
                 }
               },
               "locale": {
@@ -15597,7 +15597,7 @@
           "menu_items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SharedMenuItemComponent"
+              "$ref": "#/components/schemas/HeaderMenuItemComponent"
             }
           },
           "createdAt": {
@@ -15906,7 +15906,7 @@
                 "menu_items": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/SharedMenuItemComponent"
+                    "$ref": "#/components/schemas/HeaderMenuItemComponent"
                   }
                 },
                 "createdAt": {
@@ -15976,7 +15976,7 @@
           }
         }
       },
-      "SharedMenuItemComponent": {
+      "HeaderMenuItemComponent": {
         "type": "object",
         "properties": {
           "id": {
@@ -16016,9 +16016,6 @@
                 "items": {
                   "anyOf": [
                     {
-                      "$ref": "#/components/schemas/SharedVideoBlockComponent"
-                    },
-                    {
                       "$ref": "#/components/schemas/SharedCtaComponent"
                     },
                     {
@@ -16029,17 +16026,20 @@
                     },
                     {
                       "$ref": "#/components/schemas/SharedRichTextComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedVideoBlockComponent"
                     }
                   ]
                 },
                 "discriminator": {
                   "propertyName": "__component",
                   "mapping": {
-                    "shared.video-block": "#/components/schemas/SharedVideoBlockComponent",
                     "shared.cta": "#/components/schemas/SharedCtaComponent",
                     "shared.feature": "#/components/schemas/SharedFeatureComponent",
                     "shared.hero": "#/components/schemas/SharedHeroComponent",
-                    "shared.rich-text": "#/components/schemas/SharedRichTextComponent"
+                    "shared.rich-text": "#/components/schemas/SharedRichTextComponent",
+                    "shared.video-block": "#/components/schemas/SharedVideoBlockComponent"
                   }
                 }
               },
@@ -16137,9 +16137,6 @@
             "items": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/SharedVideoBlockComponent"
-                },
-                {
                   "$ref": "#/components/schemas/SharedCtaComponent"
                 },
                 {
@@ -16150,17 +16147,20 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedRichTextComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedVideoBlockComponent"
                 }
               ]
             },
             "discriminator": {
               "propertyName": "__component",
               "mapping": {
-                "shared.video-block": "#/components/schemas/SharedVideoBlockComponent",
                 "shared.cta": "#/components/schemas/SharedCtaComponent",
                 "shared.feature": "#/components/schemas/SharedFeatureComponent",
                 "shared.hero": "#/components/schemas/SharedHeroComponent",
-                "shared.rich-text": "#/components/schemas/SharedRichTextComponent"
+                "shared.rich-text": "#/components/schemas/SharedRichTextComponent",
+                "shared.video-block": "#/components/schemas/SharedVideoBlockComponent"
               }
             }
           },
@@ -16241,9 +16241,6 @@
                   "items": {
                     "anyOf": [
                       {
-                        "$ref": "#/components/schemas/SharedVideoBlockComponent"
-                      },
-                      {
                         "$ref": "#/components/schemas/SharedCtaComponent"
                       },
                       {
@@ -16254,17 +16251,20 @@
                       },
                       {
                         "$ref": "#/components/schemas/SharedRichTextComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SharedVideoBlockComponent"
                       }
                     ]
                   },
                   "discriminator": {
                     "propertyName": "__component",
                     "mapping": {
-                      "shared.video-block": "#/components/schemas/SharedVideoBlockComponent",
                       "shared.cta": "#/components/schemas/SharedCtaComponent",
                       "shared.feature": "#/components/schemas/SharedFeatureComponent",
                       "shared.hero": "#/components/schemas/SharedHeroComponent",
-                      "shared.rich-text": "#/components/schemas/SharedRichTextComponent"
+                      "shared.rich-text": "#/components/schemas/SharedRichTextComponent",
+                      "shared.video-block": "#/components/schemas/SharedVideoBlockComponent"
                     }
                   }
                 },
@@ -16344,155 +16344,6 @@
           },
           "meta": {
             "type": "object"
-          }
-        }
-      },
-      "SharedVideoBlockComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "__component": {
-            "type": "string",
-            "enum": [
-              "shared.video-block"
-            ]
-          },
-          "title": {
-            "type": "string"
-          },
-          "videoUrl": {
-            "type": "string"
-          },
-          "poster": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {},
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number",
-                "format": "float"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {},
-              "related": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "documentId": {
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "folder": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "documentId": {
-                    "type": "string"
-                  }
-                }
-              },
-              "folderPath": {
-                "type": "string"
-              },
-              "createdAt": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "updatedAt": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "publishedAt": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "createdBy": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "documentId": {
-                    "type": "string"
-                  }
-                }
-              },
-              "updatedBy": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "documentId": {
-                    "type": "string"
-                  }
-                }
-              },
-              "locale": {
-                "type": "string"
-              },
-              "localizations": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "documentId": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       },
@@ -16709,6 +16560,155 @@
           },
           "description": {
             "type": "string"
+          }
+        }
+      },
+      "SharedVideoBlockComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "shared.video-block"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "videoUrl": {
+            "type": "string"
+          },
+          "poster": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {},
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number",
+                "format": "float"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {},
+              "related": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "folderPath": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "updatedBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "locale": {
+                "type": "string"
+              },
+              "localizations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },

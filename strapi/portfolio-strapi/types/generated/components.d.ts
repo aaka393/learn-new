@@ -114,6 +114,18 @@ export interface FooterSocialLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HeaderMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_header_menu_items';
+  info: {
+    description: '';
+    displayName: 'menu_item';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    slug: Schema.Attribute.String;
+  };
+}
+
 export interface SharedContact extends Struct.ComponentSchema {
   collectionName: 'components_shared_contacts';
   info: {
@@ -199,17 +211,6 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
   attributes: {
     media: Schema.Attribute.Media<'images' | 'videos' | 'audios' | 'files'>;
-  };
-}
-
-export interface SharedMenuItem extends Struct.ComponentSchema {
-  collectionName: 'components_shared_menu_items';
-  info: {
-    displayName: 'menu_item';
-  };
-  attributes: {
-    label: Schema.Attribute.String & Schema.Attribute.Required;
-    slug: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -324,13 +325,13 @@ declare module '@strapi/strapi' {
       'footer.footer-column': FooterFooterColumn;
       'footer.link': FooterLink;
       'footer.social-link': FooterSocialLink;
+      'header.menu-item': HeaderMenuItem;
       'shared.contact': SharedContact;
       'shared.cta': SharedCta;
       'shared.feature': SharedFeature;
       'shared.hero': SharedHero;
       'shared.image': SharedImage;
       'shared.media': SharedMedia;
-      'shared.menu-item': SharedMenuItem;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;

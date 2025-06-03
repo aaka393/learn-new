@@ -26,11 +26,11 @@
     "blocks": {
       "type": "dynamiczone",
       "components": [
-        "shared.video-block",
         "shared.cta",
         "shared.feature",
         "shared.hero",
-        "shared.rich-text"
+        "shared.rich-text",
+        "shared.video-block"
       ]
     },
     "hero": {

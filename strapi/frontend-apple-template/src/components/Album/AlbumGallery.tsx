@@ -78,7 +78,7 @@ const AlbumGallery: React.FC = () => {
                                 >
                                     <div className="relative pb-[66.67%]">
                                         <img
-                                            src={getImageUrl(album.cover.formats.medium?.url || album.cover.url)}
+                                            src={getImageUrl(album.cover.url) || ''}
                                             alt={album.title}
                                             className="absolute inset-0 w-full h-full object-cover"
                                         />

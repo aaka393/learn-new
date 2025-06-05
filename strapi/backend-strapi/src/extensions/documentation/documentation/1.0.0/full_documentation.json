@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-06-04T04:44:19.075Z"
+    "x-generation-date": "2025-06-05T11:12:28.751Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -10059,9 +10059,6 @@
                   }
                 }
               },
-              "email": {
-                "type": "string"
-              },
               "articles": {
                 "type": "array",
                 "items": {
@@ -10373,6 +10370,11 @@
                   }
                 }
               },
+              "bio": {},
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -10536,9 +10538,6 @@
                 ],
                 "example": "string or id"
               },
-              "email": {
-                "type": "string"
-              },
               "articles": {
                 "type": "array",
                 "items": {
@@ -10552,6 +10551,11 @@
                   ],
                   "example": "string or id"
                 }
+              },
+              "bio": {},
+              "email": {
+                "type": "string",
+                "format": "email"
               },
               "locale": {
                 "type": "string"
@@ -11219,9 +11223,6 @@
               }
             }
           },
-          "email": {
-            "type": "string"
-          },
           "articles": {
             "type": "array",
             "items": {
@@ -11512,9 +11513,6 @@
                         }
                       }
                     },
-                    "email": {
-                      "type": "string"
-                    },
                     "articles": {
                       "type": "array",
                       "items": {
@@ -11528,6 +11526,11 @@
                           }
                         }
                       }
+                    },
+                    "bio": {},
+                    "email": {
+                      "type": "string",
+                      "format": "email"
                     },
                     "createdAt": {
                       "type": "string",
@@ -11732,6 +11735,11 @@
                 }
               }
             }
+          },
+          "bio": {},
+          "email": {
+            "type": "string",
+            "format": "email"
           },
           "createdAt": {
             "type": "string",
@@ -12659,9 +12667,6 @@
                         }
                       }
                     },
-                    "email": {
-                      "type": "string"
-                    },
                     "articles": {
                       "type": "array",
                       "items": {
@@ -12675,6 +12680,11 @@
                           }
                         }
                       }
+                    },
+                    "bio": {},
+                    "email": {
+                      "type": "string",
+                      "format": "email"
                     },
                     "createdAt": {
                       "type": "string",

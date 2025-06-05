@@ -129,10 +129,10 @@ export const fetchAboutData = async (): Promise<any> => {
 
 export const fetchAuthorData = async (): Promise<any> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/articles?populate=author`);
+    const response = await axios.get(`${API_BASE_URL}/authors?populate=*`);
     const articles = response.data.data;
-    if (articles && articles.length > 0 && articles[1]?.author) {
-      return articles[1].author;
+    if (articles && articles.length > 0 && articles[1]) {
+      return articles[1];
     } else {
       throw new Error('No author data found.');
     }

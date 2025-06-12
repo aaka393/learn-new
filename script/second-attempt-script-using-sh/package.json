@@ -1,0 +1,12 @@
+{
+  "name": "second-attempt-script-using-sh",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "setup": "bash setup_strapi.sh"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

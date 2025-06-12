@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_navigation_nav_items",
+  "info": {
+    "displayName": "nav-item",
+    "icon": "menu"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

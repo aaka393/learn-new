@@ -48,15 +48,14 @@
     "uploaded": {
       "type": "datetime"
     },
-    "textContent": {
-      "type": "blocks",
-      "required": false
-    },
     "markdownContent": {
       "type": "richtext"
     },
     "email": {
       "type": "email"
+    },
+    "textContent": {
+      "type": "richtext"
     }
   }
 }

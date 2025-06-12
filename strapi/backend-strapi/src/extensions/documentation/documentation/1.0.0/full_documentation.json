@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-06-05T11:12:28.751Z"
+    "x-generation-date": "2025-06-07T13:08:35.721Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -9238,13 +9238,15 @@
                 "type": "string",
                 "format": "date-time"
               },
-              "textContent": {},
               "markdownContent": {
                 "type": "string"
               },
               "email": {
                 "type": "string",
                 "format": "email"
+              },
+              "textContent": {
+                "type": "string"
               },
               "locale": {
                 "type": "string"
@@ -10308,13 +10310,15 @@
                       "type": "string",
                       "format": "date-time"
                     },
-                    "textContent": {},
                     "markdownContent": {
                       "type": "string"
                     },
                     "email": {
                       "type": "string",
                       "format": "email"
+                    },
+                    "textContent": {
+                      "type": "string"
                     },
                     "createdAt": {
                       "type": "string",
@@ -10443,13 +10447,15 @@
             "type": "string",
             "format": "date-time"
           },
-          "textContent": {},
           "markdownContent": {
             "type": "string"
           },
           "email": {
             "type": "string",
             "format": "email"
+          },
+          "textContent": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -11674,13 +11680,15 @@
                   "type": "string",
                   "format": "date-time"
                 },
-                "textContent": {},
                 "markdownContent": {
                   "type": "string"
                 },
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "textContent": {
+                  "type": "string"
                 },
                 "createdAt": {
                   "type": "string",
@@ -12828,13 +12836,15 @@
                   "type": "string",
                   "format": "date-time"
                 },
-                "textContent": {},
                 "markdownContent": {
                   "type": "string"
                 },
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "textContent": {
+                  "type": "string"
                 },
                 "createdAt": {
                   "type": "string",

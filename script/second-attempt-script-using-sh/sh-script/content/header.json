@@ -1,0 +1,9 @@
+{
+  "title": "Yensi Solution",
+  "menu_items": [
+    { "label": "Home", "slug": "/" },
+    { "label": "Articles", "slug": "/articles" },
+    { "label": "About", "slug": "/about" },
+    { "label": "Author", "slug": "/author" }
+  ]
+}

@@ -10,10 +10,20 @@
   "options": {},
   "attributes": {
     "text": {
-      "type": "text"
+      "type": "string"
     },
-    "links": {
-      "type": "json"
+    "description": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.social-link"
+    },
+    "footer_columns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-column"
     }
   }
 }

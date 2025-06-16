@@ -1,0 +1,27 @@
+{
+  "text": "© 2025 Yensi Solution. All rights reserved.",
+  "description": "Connect with us on social media or explore more through our footer links.",
+  "social_links": [
+    { "platform": "Mail", "url": "mailto:info@yensi.com" },
+    { "platform": "Github", "url": "https://github.com" },
+    { "platform": "Twitter", "url": "https://twitter.com" },
+    { "platform": "Linkedin", "url": "https://linkedin.com" },
+    { "platform": "Instagram", "url": "https://instagram.com" }
+  ],
+  "footer_columns": [
+    {
+      "title": "Company",
+      "footer_links": [
+        { "name": "About Us", "url": "/about" },
+        { "name": "Careers", "url": "/careers" }
+      ]
+    },
+    {
+      "title": "Support",
+      "footer_links": [
+        { "name": "Help Center", "url": "/help" },
+        { "name": "Contact", "url": "/contact" }
+      ]
+    }
+  ]
+}

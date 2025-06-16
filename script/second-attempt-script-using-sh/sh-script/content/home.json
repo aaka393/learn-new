@@ -1,0 +1,37 @@
+{
+  "title": "title",
+  "slug": "slug",
+  "seo_title": "AI That Works for You | Yensi",
+  "seo_description": "Discover how Yensi Solution merges intelligent design with smart interfaces to build the future.",
+  "hero": {
+    "title": "Innovation that empowers",
+    "subtitle": "Welcome to Yensi Solutions",
+    "buttonText": "Discover More",
+    "buttonUrl": "/about",
+    "description": "We bring your digital vision to life with innovative web development and groundbreaking robotics solutions."
+  },
+  "showcases": [
+    {
+      "title": "Web Development Expertise",
+      "description": "Our team of experienced developers creates stunning, responsive websites that engage users and drive results. From e-commerce platforms to corporate websites, we design and develop tailored solutions that help you stand out.",
+      "imageUrl": 1,
+      "buttonText": "Our Web Services",
+      "imagePosition": "right"
+    },
+    {
+      "title": "Robotics Solutions",
+      "description": "We take robotics beyond the traditional. Whether it's designing autonomous systems, building robotic applications, or automating complex workflows, we're dedicated to shaping the future of business with cutting-edge robotics solutions.",
+      "imageUrl": 2,
+      "buttonText": "Explore Robotics",
+      "imagePosition": "left"
+    }
+  ],
+  "story": {
+    "title": "Technology meets creativity",
+    "subtitle": "Our Vision",
+    "description": "At Yensi Solutions, we believe in the power of technology to transform businesses and lives. Our mission is to combine technological expertise with creative thinking to solve complex problems and create innovative solutions that drive growth and success.",
+    "backgroundImage": 3,
+    "buttonText": "About Us",
+    "buttonUrl": "/about"
+  }
+}

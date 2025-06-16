@@ -1,0 +1,16 @@
+[
+  {
+    "name": "rakesh",
+    "email": "rakesh2@aiyensi.com",
+    "bio": "Full-stack developer with experience in complex systems.",
+    "avatar": null,
+    "articles": [1, 2]
+  },
+  {
+    "name": "nitish",
+    "email": "nitish@aiyensi.com",
+    "bio": "Engineering leader with a focus on innovative solutions.",
+    "avatar": null,
+    "articles": []
+  }
+]

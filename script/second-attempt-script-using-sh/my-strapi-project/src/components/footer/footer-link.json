@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_footer_footer_links",
+  "info": {
+    "displayName": "footer-link",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

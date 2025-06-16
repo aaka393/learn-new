@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Tech",
+    "slug": "tech",
+    "description": "All about the latest in technology.",
+    "articles": []
+  },
+  {
+    "name": "Food",
+    "slug": "food",
+    "description": "Delicious recipes and culinary inspiration.",
+    "articles": []
+  },
+  {
+    "name": "News",
+    "slug": "news",
+    "description": "Latest headlines and current events.",
+    "articles": []
+  },
+  {
+    "name": "Story",
+    "slug": "story",
+    "description": "Creative storytelling and personal narratives.",
+    "articles": []
+  }
+]

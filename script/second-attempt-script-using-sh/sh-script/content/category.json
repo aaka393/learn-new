@@ -2,25 +2,21 @@
   {
     "name": "Tech",
     "slug": "tech",
-    "description": "All about the latest in technology.",
-    "articles": []
+    "description": "All about the latest in technology."
   },
   {
     "name": "Food",
     "slug": "food",
-    "description": "Delicious recipes and culinary inspiration.",
-    "articles": []
+    "description": "Delicious recipes and culinary inspiration."
   },
   {
     "name": "News",
     "slug": "news",
-    "description": "Latest headlines and current events.",
-    "articles": []
+    "description": "Latest headlines and current events."
   },
   {
     "name": "Story",
     "slug": "story",
-    "description": "Creative storytelling and personal narratives.",
-    "articles": []
+    "description": "Creative storytelling and personal narratives."
   }
 ]

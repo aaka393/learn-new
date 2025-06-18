@@ -57,22 +57,39 @@ const Author: React.FC = () => {
   };
 
   const renderBio = () => {
-    if (!author?.bio || author.bio.length === 0) {
-      return <p className="text-center text-slate-400">This author has not provided a bio.</p>;
-    }
+  if (!author?.bio || author.bio.length === 0) {
+    return <p className="text-center text-slate-400">This author has not provided a bio.</p>;
+  }
 
+  // Try rendering structured bio
+  try {
     return author.bio.map((block, index) => {
-      if (block.type === 'paragraph') {
+      if (block.type === 'paragraph' && Array.isArray(block.children)) {
         const text = block.children.map((child) => child.text).join('');
         return (
           <p key={index} className="text-center text-slate-300 mb-2 leading-relaxed">
             {text}
           </p>
         );
+      } else {
+        // If the block doesn't match expected structure, try to stringify
+        return (
+          <p key={index} className="text-center text-slate-400 italic mb-2">
+            {JSON.stringify(block)}
+          </p>
+        );
       }
-      return null;
     });
-  };
+  } catch (error) {
+    console.warn('Error parsing author bio:', error);
+    return (
+      <p className="text-center text-slate-400 italic">
+        Unable to render bio content correctly.
+      </p>
+    );
+  }
+};
+
 
   if (loading) {
     return (

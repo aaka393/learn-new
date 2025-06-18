@@ -1,0 +1,71 @@
+{
+  "title": "About Yensi Solutions",
+  "subtitle": "Our story and vision for the future",
+  "team": [
+    {
+      "name": "Rakesh",
+      "role": "Founder & CEO",
+      "bio": "Tech visionary with expertise in web development and robotics solutions.",
+      "photo": null
+    },
+    {
+      "name": "Nitish",
+      "role": "CTO",
+      "bio": "Engineering leader with a focus on innovative and scalable solutions.",
+      "photo": null
+    },
+    {
+      "name": "Aakash",
+      "role": "Lead Developer",
+      "bio": "Full-stack developer with extensive experience in complex systems.",
+      "photo": null
+    },
+    {
+      "name": "Chandu",
+      "role": "Senior Developer",
+      "bio": "Creative coder with a passion for building user-friendly applications.",
+      "photo": null
+    }
+  ],
+  "blocks": [
+    {
+      "__component": "about.section",
+      "content": "<h2>Our Story</h2><p>WYensi Solutions is a cutting-edge technology company that specializes in web development and robotics solutions. Founded with a vision to bridge the gap between innovative technology and practical business needs, we've been transforming ideas into reality since our inception.</p><p>Our journey began with a simple belief: that technology should empower businesses to achieve more than they ever thought possible. Today, we continue to push the boundaries of what's achievable through our expertise in modern web technologies and advanced robotics systems.</p>",
+      "image": null
+    },
+    {
+      "__component": "about.values",
+      "values": [
+        {
+          "title": "Innovation",
+          "description": "We're constantly pushing boundaries and exploring new technologies to deliver cutting-edge solutions that set industry standards."
+        },
+        {
+          "title": "Excellence",
+          "description": "We strive for excellence in everything we do, from code quality to user experience, ensuring every project exceeds expectations."
+        },
+        {
+          "title": "Collaboration",
+          "description": "We believe in working closely with our clients as partners, ensuring we're delivering exactly what they need for success."
+        },
+        {
+          "title": "Integrity",
+          "description": "We're committed to transparency, honesty, and ethical business practices in all our dealings and relationships."
+        },
+        {
+          "title": "Scalability",
+          "description": "Our solutions are built to grow with your business, ensuring long-term value and adaptability to changing needs."
+        },
+        {
+          "title": "Support",
+          "description": "We provide comprehensive support throughout the entire project lifecycle and beyond, ensuring your continued success."
+        }
+      ]
+    },
+    {
+      "__component": "about.section",
+      "content": "<h2>Our Mission</h2><p>To bring your digital vision to life with innovative solutions that are as dynamic as your business needs. We combine technical expertise with creative problem-solving to deliver solutions that not only meet today's requirements but anticipate tomorrow's challenges.</p><p>Whether you're looking to modernize your web presence, automate complex processes, or explore the possibilities of robotics integration, we're here to guide you through every step of your digital transformation journey.</p>",
+      "image": null
+    }
+  ]
+}

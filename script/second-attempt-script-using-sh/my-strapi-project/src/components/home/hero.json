@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_home_heroes",
+  "info": {
+    "displayName": "hero",
+    "icon": "heading"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false
+    },
+    "buttonText": {
+      "type": "string"
+    },
+    "buttonUrl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

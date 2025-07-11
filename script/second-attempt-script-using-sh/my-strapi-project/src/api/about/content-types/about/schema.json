@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "abouts",
+  "info": {
+    "singularName": "about",
+    "pluralName": "abouts",
+    "displayName": "About",
+    "description": "About page content"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "about.values",
+        "about.section"
+      ]
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "team": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.team-member"
+    }
+  }
+}

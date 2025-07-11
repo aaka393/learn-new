@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_about_value_items",
+  "info": {
+    "displayName": "value-item",
+    "icon": "tag"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

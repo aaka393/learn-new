@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_about_values",
+  "info": {
+    "displayName": "values",
+    "icon": "award"
+  },
+  "options": {},
+  "attributes": {
+    "values": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.value-item"
+    }
+  }
+}

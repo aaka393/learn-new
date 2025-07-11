@@ -5,10 +5,17 @@ STRAPI_URL="http://localhost:1337"
 CONTENT_DIR="./content"
 UPLOADS_DIR="../uploads"
 
+# Check if JWT token is provided
+if [ -z "$1" ]; then
+  echo "Usage: ./article.sh <JWT_TOKEN> [<filename>]"
+  exit 1
+fi
+
+ADMIN_JWT="$1"
+FILENAME="$2"
+
 echo "=================================================="
-echo "📌 Paste your JWT Admin Token below (from /admin login page after registration):"
-echo "=================================================="
-read -p "JWT Token: " ADMIN_JWT
+echo "Using JWT Token: $ADMIN_JWT"
 
 # Function to wait for Strapi to be up
 wait_for_strapi() {

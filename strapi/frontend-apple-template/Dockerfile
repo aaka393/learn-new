@@ -11,12 +11,6 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
-# Pass ENV from build-arg
-ARG VITE_API_BASE_URL
-ARG VITE_BACKEND_URL
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
-ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
-
 # Build the Vite app
 RUN npm run build
 

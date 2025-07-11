@@ -103,6 +103,7 @@ const About: React.FC = () => {
 
 const AboutSection = ({ content, imageUrl }: { content: any[]; imageUrl: string }) => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  console.log(content)
 
   const parsedContent = content
     .map((block) =>

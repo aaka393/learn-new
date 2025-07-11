@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "footers",
+  "info": {
+    "singularName": "footer",
+    "pluralName": "footers",
+    "displayName": "Footer",
+    "description": "Footer section with text, description, social links and footer columns"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.social-link"
+    },
+    "footer_columns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-column"
+    }
+  }
+}

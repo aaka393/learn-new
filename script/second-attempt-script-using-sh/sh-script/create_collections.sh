@@ -666,7 +666,7 @@ ABOUT_JSON=$(echo "$ABOUT_RAW_JSON" | jq \
   | .team[3].photo = ($avatar4 | tonumber)
   | .blocks[] |= (
       if has("image") then
-        .image = ($IMAGE_STORY | tonumber)
+        .image = ($programmers | tonumber)
       else .
       end
     )
@@ -823,8 +823,8 @@ echo "📄 Articles Response: $ARTICLES_RESPONSE"
 # Extract IDs from responses
 RAKESH_ID=$(echo "$RAKESH_RESPONSE" | jq -r '.results[] | select(.email == "rakesh2@aiyensi.com") | .id')
 TECH_CAT_ID=$(echo "$TECH_CAT_RESPONSE" | jq -r '.results[] | select(.slug == "tech") | .id')
-ARTICLE_1_ID=$(echo "$ARTICLES_RESPONSE" | jq -r '.results[] | select(.slug == "yensi-blogs") | .id')
-ARTICLE_2_ID=$(echo "$ARTICLES_RESPONSE" | jq -r '.results[] | select(.slug == "hyderabad-premier-golf-league-hpgl-analytics-auctions-live") | .id')
+ARTICLE_1_ID=$(echo "$ARTICLES_RESPONSE" | jq -r '.results[] | select(.slug == "yensi-blogs") | .documentId')
+ARTICLE_2_ID=$(echo "$ARTICLES_RESPONSE" | jq -r '.results[] | select(.slug == "hyderabad-premier-golf-league-hpgl-analytics-auctions-live") | .documentId')
 
 echo "Rakesh ID: $RAKESH_ID"
 echo "Tech Category ID: $TECH_CAT_ID"

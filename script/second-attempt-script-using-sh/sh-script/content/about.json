@@ -30,7 +30,7 @@
   "blocks": [
     {
       "__component": "about.section",
-      "content": "<h2>Our Story</h2><p>WYensi Solutions is a cutting-edge technology company that specializes in web development and robotics solutions. Founded with a vision to bridge the gap between innovative technology and practical business needs, we've been transforming ideas into reality since our inception.</p><p>Our journey began with a simple belief: that technology should empower businesses to achieve more than they ever thought possible. Today, we continue to push the boundaries of what's achievable through our expertise in modern web technologies and advanced robotics systems.</p>",
+      "content": "Yensi Solutions is a cutting-edge technology company that specializes in web development and robotics solutions. Our mission is to bring your digital vision to life with innovative solutions that are as dynamic as your business needs.",
       "image": null
     },
     {
@@ -61,11 +61,6 @@
           "description": "We provide comprehensive support throughout the entire project lifecycle and beyond, ensuring your continued success."
         }
       ]
-    },
-    {
-      "__component": "about.section",
-      "content": "<h2>Our Mission</h2><p>To bring your digital vision to life with innovative solutions that are as dynamic as your business needs. We combine technical expertise with creative problem-solving to deliver solutions that not only meet today's requirements but anticipate tomorrow's challenges.</p><p>Whether you're looking to modernize your web presence, automate complex processes, or explore the possibilities of robotics integration, we're here to guide you through every step of your digital transformation journey.</p>",
-      "image": null
     }
   ]
 }

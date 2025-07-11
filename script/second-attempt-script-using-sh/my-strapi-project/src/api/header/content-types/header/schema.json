@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header",
+    "description": "Header section with title and menu items"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "menu_items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "header.nav-item"
+    }
+  }
+}
